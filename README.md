@@ -65,7 +65,7 @@ ReactDOM.render(<App />, document.querySelector('.container'));
 ## Class vs Instance of the component
 - When creating component, we create **class component**
 - Creating instance is i.e. `<App />` from class App `const App = function() {...`
-- Render destination
+- Render destination by targeting DOM element i.e. element HTML class `document.querySelector('.container')`
 
 
 
