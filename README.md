@@ -42,7 +42,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // Create new component, should produce HTML
-const App = function() {
+// function() is replaced with ES6 fat arrow () => {}
+const App = () => {
   return <div>Hi!</div>div>;
 }
 
