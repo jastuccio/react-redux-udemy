@@ -101,7 +101,7 @@ ReactDOM.render(<App />, document.querySelector('.container'));
 ```
 
 
-# Exporting modules
+## Exporting modules
 - `export default SearchBar` makes sure that component is enabled to `import` statement in other files, imports SearchBar const only
 - `import SearchBar from './components/search_bar'` put into the file which is using `<SearchBar />` makes sure that it will be available there, no need to use search_bar.js it assumes that it is JS file as a default, make sure that the relative path is correct.
 
