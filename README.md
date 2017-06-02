@@ -29,3 +29,49 @@ export default class App extends Component {
   }
 }
 ```
+
+## What is component
+
+- React JS library is used to produce HTML that is shown to the user in the web browser. 
+- When writting React code we write inidividual **components** or **views**
+- Snippets of code in JS which produce HTML 
+
+```javascript
+
+// Create new component, should produce HTML
+const App = function() {
+  return <div>Hi!</div>div>;
+}
+
+// Take this component's generated HTML and put on the page (in the DOM)
+
+```
+### Comments on above
+
+- `const` ES6 syntax for declaring variable, not going to change as oppose to `var`
+- `function() {}` can be replaced with `() => {}` fat arrow ES6 syntax
+- **JSX** is a subset of JS which allows to write wht looks like HTML inside JS, but it is JS behind the scenes. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
