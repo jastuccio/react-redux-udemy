@@ -16,7 +16,6 @@ Webpack and Babel will do the tranpile, compilation
 - Visit `localhost:8080`
 
 ## Default component 
-
 ```javascript
 import React from 'react';
 import { Component } from 'react';
@@ -37,7 +36,6 @@ export default class App extends Component {
 - Snippets of code in JS which produce HTML 
 
 ```javascript
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -50,6 +48,7 @@ const App = () => {
 // Take this component's generated HTML and put on the page (in the DOM)
 ReactDOM.render(<App />, document.querySelector('.container'));
 ```
+
 ### Comments on above
 
 - `const` ES6 syntax for declaring variable, not going to change as oppose to `var`
@@ -67,12 +66,173 @@ ReactDOM.render(<App />, document.querySelector('.container'));
 - Creating instance is i.e. `<App />` from class App `const App = function() {...`
 - Render destination by targeting DOM element i.e. element HTML class `document.querySelector('.container')`
 
+## Exporting modules, classes and setting/changing state
+
+### EXPORTING
+```javascript
+
+import React from 'react';
+
+const SearchBar = () => {
+  return <input />
+}
+
+// exporting only SearchBar component
+export default SearchBar;
+
+```
+
+### IMPORTING
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+import SearchBar from './components/search_bar';
+
+const App = () => {
+  return ( 
+    <div>
+      <SearchBar />
+    </div>
+  );
+}
+
+ReactDOM.render(<App />, document.querySelector('.container'));
+
+```
 
 
+# Exporting modules
+- `export default SearchBar` makes sure that component is enabled to `import` statement in other files, imports SearchBar const only
+- `import SearchBar from './components/search_bar'` put into the file which is using `<SearchBar />` makes sure that it will be available there, no need to use search_bar.js it assumes that it is JS file as a default, make sure that the relative path is correct.
+
+## Class vs Functional components
+
+- Class component when we want that to be aware of itself to kee state vs dummy functional to e.g. only render to the screen
+
+### FUNCTIONAL
+```javascript
+import React from 'react';
+
+const SearchBar = () => {
+  return <input />
+}
+
+// exporting only SearchBar component
+export default SearchBar;
+
+```
+
+### CLASS
+```javascript
+// import React from 'react';
+   import React, { Component } from 'react';
+
+// class SearchBar extends React.Component {
+   class SearchBar extends Component {
+    render() {
+      return <input />;
+    }
+  }
+
+export default SearchBar;
+
+```
+
+- Creates new class SearchBar and gives it access to all functionalities React.Components has
+- render() method has to return() JSX otherwise there will be an error
+
+## Event handler
+
+```javascript
+import React, { Component } from 'react';
+
+class SearchBar extends Component {
+  render() {
+    // alternatively return <input onInputChange={event => console.log(event.target.value)} />;
+    return <input onChange={this.onInputChange} />;
+  }
+
+  // event handler
+  onInputChange(event) {
+    console.log(event.target.value);
+  }
+}
+
+export default SearchBar;
+
+```
+
+## State
+
+- State definition is plain JS object that is used to record and react to user event
+- Each class based component has it own state object
+- Whenever component's state is change, component immediately rerenders and forces all its children to rerender as well
+- `constructor(props)... super(props)... this.state=` initialize state in a class based component
+- constructor function is reserved to do set up inside the class
+- super for calling method on parent class
+
+```javascript
+import React, { Component } from 'react';
+
+class SearchBar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { term: '' };
+  }
+
+  render() {
+    //return <input onInputChange={event => console.log(event.target.value)} />;
+    // changed to
+    //return <input onChange={event => this.setState({ term: event.target.value })} />;
+    // and now to...
+    return (
+      <div>
+        <input onChange={event => this.setState({ term: event.target.value })}>
+        Value of the input: {this.state.term}
+      </div>;
+    )
+  }
+}
+
+export default SearchBar;
+
+```
+
+## Updating state
+- Only inside the constructor function we manipulate the state `this.state = {};`
+- Outside constructor chage with `this.setState = {};`
+- State should tell input what the current should be therfore above example needs to be refactored - controlled components
+-  **controlled component** has its `value` set by state - see second example below (value changes when state changes)
+
+```javascript
+render() {
+    return (
+      <div>
+        <input onChange={event => this.setState({ term: event.target.value })}>
+        Value of the input: {this.state.term}
+      </div>;
+    )
+  }
+
+```
+
+### Change to the below for **controlled component**
 
 
+```javascript
+render() {
+    return (
+      <div>
+        <input 
+          value={this.state.term}
 
+        />    
+      </div>;
+    )
+  }
 
+```
 
 
 
