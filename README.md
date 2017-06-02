@@ -17,7 +17,7 @@ Webpack and Babel will do the tranpile, compilation
 
 ## Default component 
 
-`
+```javascript
 import React from 'react';
 import { Component } from 'react';
 
@@ -28,5 +28,4 @@ export default class App extends Component {
     )
   }
 }
-
-`
+```
