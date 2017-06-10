@@ -4,14 +4,14 @@
 
 React Components in ES6
 Tooling (to transpile JSX + ES6 to ES5)
-Webpack and Babel will do the tranpile, compilation
+Webpack and Babel will transpile, compile
 (Webpack+Babel compile JS files to bundle.js - see `<script>` tag in index.html)
 
 ## Scaffolding project
 
 - Get repo `git clone https://github.com/StephenGrider/ReduxSimpleStarter.git`
 - Change to folder `ReduxSimpleStarter`
-- Install dependancies `npm install`
+- Install dependencies `npm install`
 - Run project `npm start`
 - Visit `localhost:8080`
 
@@ -49,17 +49,17 @@ const App = () => {
 ReactDOM.render(<App />, document.querySelector('.container'));
 ```
 
-### Comments on above
+### Comments on the above
 
 - `const` ES6 syntax for declaring variable, not going to change as oppose to `var`
 - `function() {}` can be replaced with `() => {}` **fat arrow** ES6 syntax
-- **JSX** is a subset of JS which allows to write wht looks like HTML inside JS, but it is JS behind the scenes. 
+- **JSX** is a subset of JS which allows to write what looks like HTML inside JS, but it is JS behind the scenes 
 - **JSX** has to be compiled to native JS
 - `https://babeljs.io/repl/` a web tool to preview **ES6 compiled to native JS**
 
 ### ReactDOM vs React
-- `import React from 'react` for imports core React library which works with components e.g. rendering, nesting (creating and managing components)
-- `import ReactDOM from 'react-dom` for imports DOM React library which include functionality to take componenet and put it into DOM
+- `import React from 'react` for imports of core React library which work with components e.g. rendering, nesting (creating and managing components)
+- `import ReactDOM from 'react-dom` for imports of DOM React library which include functionality to take componenet and put it into DOM
 
 ## Class vs Instance of the component
 - When creating component, we create **class component**
@@ -93,7 +93,7 @@ const App = () => {
     <div>
       <SearchBar />
     </div>
-  );
+  )
 }
 
 ReactDOM.render(<App />, document.querySelector('.container'));
@@ -107,7 +107,7 @@ ReactDOM.render(<App />, document.querySelector('.container'));
 
 ## Class vs Functional components
 
-- Class component when we want that to be aware of itself to kee state vs dummy functional to e.g. only render to the screen
+- Class component when we want that to be aware of itself via state vs dummy functional to e.g. only render to the screen
 
 ### FUNCTIONAL
 ```javascript
@@ -166,7 +166,7 @@ export default SearchBar;
 
 - State definition is plain JS object that is used to record and react to user event
 - Each class based component has it own state object
-- Whenever component's state is change, component immediately rerenders and forces all its children to rerender as well
+- Whenever component's state is changed, component immediately rerenders and forces all its children to rerender as well
 - `constructor(props)... super(props)... this.state=` initialize state in a class based component
 - constructor function is reserved to do set up inside the class
 - super for calling method on parent class
@@ -201,8 +201,8 @@ export default SearchBar;
 
 ## Updating state
 - Only inside the constructor function we manipulate the state `this.state = {};`
-- Outside constructor chage with `this.setState = {};`
-- State should tell input what the current should be therfore above example needs to be refactored - controlled components
+- Outside constructor change should be done with `this.setState = {};`
+- State should tell input what the current value should be therfore above example needs to be refactored - controlled components
 -  **controlled component** has its `value` set by state - see second example below (value changes when state changes)
 
 ```javascript
