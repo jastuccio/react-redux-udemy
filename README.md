@@ -202,7 +202,7 @@ export default SearchBar;
 ## Updating state
 - Only inside the constructor function we manipulate the state `this.state = {};`
 - Outside constructor change should be done with `this.setState = {};`
-- State should tell input what the current value should be therfore above example needs to be refactored - controlled components
+- State should tell input what the current value should be therefore above example needs to be refactored - controlled components
 -  **controlled component** has its `value` set by state - see second example below (value changes when state changes)
 
 ```javascript
@@ -284,3 +284,128 @@ activeBook: {title: 'HarryPotter'}
 ```
 - **Container** is a React component that has a direct connection to the state managed by Redux
 - Component where state is injected to will be promoted to container = so called 'smart components'
+
+## mapStateToProps
+
+- mapStateToProps takes the application state and whatever is returned from that function is what is going to show up as props inside the container above e.g. 'class BookList extends...'
+
+```javascript
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+class BookList extends Component {
+  renderList() {
+    return this.props.books.map((book) => {
+      return (
+        <li key={book.title} className="list-group-item">{book.title}</li>
+      );  
+    });
+  }
+
+  render() {
+    return (
+      <ul className="list-group col-sm4">
+        {this.renderList()}
+      </ul>
+    )
+  }
+}
+
+function mapStateToProps(state) {
+  // whatever is returned will show up as props
+  // inside of BookList
+  return {
+    books: state.books // returns an object with key books available for this.props.books equal to state.books - coming from Redux, a glue between React here and Redux object
+  };
+}
+
+// connect takes a function and a component and produces a container
+export default connect(mapStateToProps)(BookList);
+```
+
+## Action and Action Creators
+- action creator returns an object
+- returned object is automatically send to all different reducers - will flow through all reducers in an app
+- reducers can choose depending on the action to return different pieces of state depending on what the action is
+
+### Process illustration
+// click => action creator => action => active book reducer => object returned contains same/new activeBook property => app components rerender
+
+```javascript
+// action creator
+function( return {
+  type: BOOK_SELECTED
+  book: { title: 'Book2'}
+})
+
+// action
+{
+  type: BOOK_SELECTED
+  book: { title: 'Book2'}
+}
+
+// active book reducer
+switch (action.type) {
+  case BOOK_SELECTED:
+    return action.book
+  default:
+  // I dont care about this action do nothing return currentState
+}
+
+// activeBook property returned from book reducer
+{
+  activeBook: {title: 'JavaScript'}
+  books: [ {title: 'Dark Tower'}, {title: 'JavaScript'}]
+}
+```
+
+```javascript
+// newly updated book-list.js
+
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { selectBook } from '../actions/index';
+import { bindActionCreators } from 'redux';
+
+
+class BookList extends Component {
+  renderList() {
+    return this.props.books.map((book) => {
+      return (
+        <li key={book.title} className="list-group-item">{book.title}</li>
+      );  
+    });
+  }
+
+  render() {
+    return (
+      <ul className="list-group col-sm4">
+        {this.renderList()}
+      </ul>
+    )
+  }
+}
+
+function mapStateToProps(state) {
+  // whatever is returned will show up as props
+  // inside of BookList
+  return {
+    books: state.books
+  };
+}
+
+// Anything returned from this function will end up as props
+// on the BookList container
+function mapDispatchToProps(dispatch) {
+  // Whenever selectBook is called, the result should be passed
+  // to all of our reducers
+  return bindActionCreators({ selectBook: selectBook }, dispatch);
+}
+
+// Promote BookList from a component to a container - it needs to know
+// about this new dispatch method, selectBook. Maker it available
+// as a prop.
+export default connect(mapStateToProps, mapDispatchToProps)(BookList);
+
+```
+
